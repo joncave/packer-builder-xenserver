@@ -31,6 +31,7 @@ type CommonConfig struct {
 
 	PreBootHostScripts   []string `mapstructure:"pre_boot_host_scripts"`
 	PreExportHostScripts []string `mapstructure:"pre_export_host_scripts"`
+        PostStopHostScripts   []string `mapstructure:"post_stop_host_scripts"`
 	BootCommand          []string `mapstructure:"boot_command"`
 	ShutdownCommand      string   `mapstructure:"shutdown_command"`
 

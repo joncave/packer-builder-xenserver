@@ -326,7 +326,11 @@ func (self *Builder) Run(ui packer.Ui, hook packer.Hook, cache packer.Cache) (pa
 		},
 		new(common.StepProvision),
 		new(xscommon.StepShutdown),
-		&xscommon.StepDetachVdi{
+		&xscommon.StepExecuteHostScripts{
+                        ScriptType:   "post-stop",
+                        LocalScripts: self.config.PostStopHostScripts,
+                },
+                &xscommon.StepDetachVdi{
 			VdiUuidKey: "iso_vdi_uuid",
 		},
 		&xscommon.StepDetachVdi{
