@@ -182,10 +182,6 @@ func (self *Builder) Run(ui packer.Ui, hook packer.Hook, cache packer.Cache) (pa
 		},
 		new(common.StepProvision),
 		new(xscommon.StepShutdown),
-                &xscommon.StepExecuteHostScripts{
-                        ScriptType:   "post-stop",
-                        LocalScripts: self.config.PostStopHostScripts,
-                },
 		&xscommon.StepDetachVdi{
 			VdiUuidKey: "floppy_vdi_uuid",
 		},
@@ -193,7 +189,11 @@ func (self *Builder) Run(ui packer.Ui, hook packer.Hook, cache packer.Cache) (pa
 			VdiUuidKey: "tools_vdi_uuid",
 		},
 		new(xscommon.StepConfigureDiscDrives),
-		new(xscommon.StepConvertToTemplate),
+		  &xscommon.StepExecuteHostScripts{
+                        ScriptType:   "post-stop",
+                        LocalScripts: self.config.PostStopHostScripts,
+                },
+                new(xscommon.StepConvertToTemplate),
 		new(xscommon.StepDestroyVIFs),
 		&xscommon.StepExecuteHostScripts{
 			ScriptType:   "pre-export",
