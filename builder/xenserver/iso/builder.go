@@ -339,7 +339,7 @@ func (self *Builder) Run(ui packer.Ui, hook packer.Hook, cache packer.Cache) (pa
 			VdiUuidKey: "floppy_vdi_uuid",
 		},
 		new(xscommon.StepConfigureDiscDrives),
-		  &xscommon.StepExecuteHostScripts{
+		&xscommon.StepExecuteHostScripts{
                         ScriptType:   "post-stop",
                         LocalScripts: self.config.PostStopHostScripts,
                 },
