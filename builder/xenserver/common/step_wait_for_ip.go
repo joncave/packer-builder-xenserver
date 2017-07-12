@@ -19,7 +19,7 @@ func (self *StepWaitForIP) Run(state multistep.StateBag) multistep.StepAction {
 	ui := state.Get("ui").(packer.Ui)
 	client := state.Get("client").(xsclient.XenAPIClient)
 	config := state.Get("commonconfig").(CommonConfig)
-
+        
 	ui.Say("Step: Wait for VM's IP to become known to us.")
 
 	uuid := state.Get("instance_uuid").(string)
@@ -28,7 +28,8 @@ func (self *StepWaitForIP) Run(state multistep.StateBag) multistep.StepAction {
 		ui.Error(fmt.Sprintf("Unable to get VM from UUID '%s': %s", uuid, err.Error()))
 		return multistep.ActionHalt
 	}
-
+   
+        time.Sleep(60 * time.Second)
 	var ip string
 	err = InterruptibleWait{
 		Timeout:           self.Timeout,
